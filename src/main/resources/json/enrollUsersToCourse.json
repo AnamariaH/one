@@ -1,0 +1,27 @@
+[
+  {
+    "courseId": "c1_teachers",
+    "userId": "t5",
+    "userRole": "teacher"
+  },
+  {
+    "courseId": "c2_teachers",
+    "userId": "t6",
+    "userRole": "teacher"
+  },
+  {
+    "courseId": "c2_teachers",
+    "userId": "t6",
+    "userRole": "teacher"
+  },
+  {
+    "courseId": "c1_students",
+    "userId": "s7",
+    "userRole": "student"
+  },
+  {
+    "courseId": "c1_students",
+    "userId": "s8",
+    "userRole": "student"
+  }
+]

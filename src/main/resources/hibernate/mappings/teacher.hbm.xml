@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="dao.Teacher" table="Teacher">
+        <meta attribute="class-description">
+            This class contains teacher details.
+        </meta>
+        <id name="id" type="int" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="string"/>
+        <property name="email" column="email" type="string"/>
+        <property name="registrationNumber" column="registrationNumber" type="int"/>
+        <property name="phoneNumber" column="phoneNumber" type="string"/>
+        <property name="role" column="role" type="string" />
+        <property name="oneId" column="oneId" type="int" />
+    </class>
+</hibernate-mapping>

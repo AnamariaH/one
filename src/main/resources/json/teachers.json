@@ -1,0 +1,13 @@
+[
+  {
+    "name": "t5",
+    "email": "teacher1",
+    "phoneNumber": "0755",
+    "role": "teacher"
+  },
+  {
+    "name": "t6",
+    "email": "teacher2",
+    "role": "teacher"
+  }
+]
