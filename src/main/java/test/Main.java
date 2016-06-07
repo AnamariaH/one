@@ -2,6 +2,8 @@ package test;
 
 import controllers.GroupController;
 import controllers.UserController;
+import controllers.VMTemplateController;
+import controllers.VirtualMachineController;
 import org.opennebula.client.ClientConfigurationException;
 import service.db.DbUserService;
 import service.onedb.*;
@@ -20,10 +22,14 @@ public class Main {
     private static UserController userController = new UserController();
     private static GroupController groupController = new GroupController();
     private static VMTemplateService vmTemplateService = new VMTemplateService();
+    private static VMTemplateController vmTemplateController=new VMTemplateController();
+    private static VirtualMachineController virtualMachineController=new VirtualMachineController();
 
     public static void main(String[] args) throws ClientConfigurationException, IOException, JAXBException {
+        //vmTemplateController.createTemplate("c2_teachers","t1","ttylinux - kvm_file0");
+        virtualMachineController.createVirtualMachine("c2_teachers","s7",16);
         //vmTemplateService.createVMTemplate("");
-        vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));
+        //vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));
         //imageService.uploadImage();
 //        userController.enroll("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json",
 //                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json",

@@ -6,6 +6,8 @@ import service.onedb.UsersOneService;
 import service.onedb.VMTemplateService;
 import service.onedb.VirtualMachineService;
 
+import java.io.IOException;
+
 public class VirtualMachineController {
 
     private GroupService groupService=new GroupService();
@@ -14,11 +16,21 @@ public class VirtualMachineController {
 
 
     public void createVirtualMachine(String courseName, String userName, int templateId) throws ClientConfigurationException {
-        if (groupService.getGroupById(groupService.getGroupId(courseName))
-                .contains(usersOneService.getUserId(userName))) {
+//        if (groupService.getGroupById(groupService.getGroupId(courseName))
+//                .contains(usersOneService.getUserId(userName))) {
             virtualMachineService.createVM(templateId).chown(usersOneService.getUserId(userName));
-        }
+    }
 
+    public void removeVirtualMachine(String userName, int vmId) throws ClientConfigurationException, IOException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.deleteVM(vmId);
+        }
+    }
+
+    public void changeVMPermissions(String userName, int vmId, int permissionCode) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.changeVMPermissions(vmId, permissionCode);
+        }
     }
 
 }

@@ -14,11 +14,11 @@ public class VirtualMachineService {
     public VirtualMachine createVM(int templateId) throws ClientConfigurationException {
         oneClient = new Client();
         String vmTemplate =
-                "NAME     = vm_test_2   CPU = 1    MEMORY = 128\n" +
-                      //  "CONTEXT = [ NETWORK = \"YES\", TARGET = \"hdb\" ]\n" +
+                "NAME     = vm_test_3   CPU = 1    MEMORY = 128\n" +
+                        "CONTEXT = [ NETWORK = \"YES\", TARGET = \"hdb\" ]\n" +
                         "DISK = [ DATASTORE = \"default\", DATASTORE_ID = \"1\", \n" +
-                       // "DEV_PREFIX = \"hd\", DISK_ID = \"0\", \n" +
-                      //  "DISK_SNAPSHOT_TOTAL_SIZE = \"0\", LN_TARGET = \"NONE\", \n" +
+                        "DEV_PREFIX = \"hd\", DISK_ID = \"0\", \n" +
+                        "DISK_SNAPSHOT_TOTAL_SIZE = \"0\", LN_TARGET = \"NONE\", \n" +
                         "IMAGE = \"ttylinux - kvm_file0\", IMAGE_ID = \"5\", IMAGE_UNAME = \"oneadmin\", \n"+
                         "TARGET = \"hda\", TM_MAD = \"shared\"] \n" +
                         "TEMPLATE_ID     = " + templateId +

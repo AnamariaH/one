@@ -13,7 +13,7 @@ public class VMTemplateService {
     public Template createVMTemplate(String imageName) throws ClientConfigurationException {
         oneClient=new Client();
         String vmTemplate =
-                "NAME   = test-temp1\n" +
+                "NAME   = test-temp2\n" +
                         "MEMORY = 128\n" +
                         "CONTEXT = [ NETWORK = \"YES\", SSH_PUBLIC_KEY = \"$USER[SSH_PUBLIC_KEY]\" ]\n" +
                         "CPU    = 1\n" +
@@ -71,6 +71,10 @@ public class VMTemplateService {
         templatePool.infoAll();
         System.out.print(templatePool.infoAll());
         return templatePool.getById(id);
+    }
+
+    public void changePermissions(int templateId, int permissionCode) throws ClientConfigurationException {
+        getTemplateById(templateId).chmod(permissionCode);
     }
 
     public void deleteTemplate(int templateId) throws ClientConfigurationException {
