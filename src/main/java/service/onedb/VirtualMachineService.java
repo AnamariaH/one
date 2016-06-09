@@ -14,7 +14,7 @@ public class VirtualMachineService {
     public VirtualMachine createVM(int templateId) throws ClientConfigurationException {
         oneClient = new Client();
         String vmTemplate =
-                "NAME     = vm_test_3   CPU = 1    MEMORY = 128\n" +
+                "NAME     = vm_test_5   CPU = 1    MEMORY = 64\n" +
                         "CONTEXT = [ NETWORK = \"YES\", TARGET = \"hdb\" ]\n" +
                         "DISK = [ DATASTORE = \"default\", DATASTORE_ID = \"1\", \n" +
                         "DEV_PREFIX = \"hd\", DISK_ID = \"0\", \n" +

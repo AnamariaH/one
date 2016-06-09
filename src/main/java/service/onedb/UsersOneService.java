@@ -5,6 +5,7 @@ import dao.Teacher;
 import org.opennebula.client.Client;
 import org.opennebula.client.ClientConfigurationException;
 import org.opennebula.client.OneResponse;
+import org.opennebula.client.group.Group;
 import org.opennebula.client.user.User;
 import org.opennebula.client.user.UserPool;
 import service.db.DbUserService;
