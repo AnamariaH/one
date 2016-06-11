@@ -20,6 +20,7 @@ public class VirtualMachineController {
         int userId = usersOneService.getUserId(userName);
         vm.chown(userId);
         vm.chgrp(groupService.getUserGroup(userId));
+        vm.chmod(740);
         return vm;
     }
 
@@ -32,6 +33,42 @@ public class VirtualMachineController {
     public void changeVMPermissions(String userName, int vmId, int permissionCode) throws ClientConfigurationException {
         if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
             virtualMachineService.changeVMPermissions(vmId, permissionCode);
+        }
+    }
+
+    public void stopVM(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.stopVm(vmId);
+        }
+    }
+
+    public void shutdownVm(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.shutdownVm(vmId);
+        }
+    }
+
+    public void holdVm(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.changeStatusToHold(vmId);
+        }
+    }
+
+    public void powerOffVm(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.changeStatusToPowerOff(vmId);
+        }
+    }
+
+    public void suspendVm(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.suspendVm(vmId);
+        }
+    }
+
+    public void resumeVm(String userName, int vmId) throws ClientConfigurationException {
+        if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
+            virtualMachineService.resumeVm(vmId);
         }
     }
 

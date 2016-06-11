@@ -116,6 +116,21 @@ public class VirtualMachineService {
         System.out.println(rc.getMessage());
     }
 
+    public void suspendVm(int vmId) throws ClientConfigurationException {
+        OneResponse rc = getVMById(vmId).suspend();
+        System.out.println(rc.getMessage());
+    }
+
+    public void stopVm(int vmId) throws ClientConfigurationException {
+        OneResponse rc = getVMById(vmId).stop();
+        System.out.println(rc.getMessage());
+    }
+
+    public void shutdownVm(int vmId) throws ClientConfigurationException {
+        OneResponse rc = getVMById(vmId).shutdown();
+        System.out.println(rc.getMessage());
+    }
+
     public int getTemplateMemory(int templateId) {
         int memory = 0;
         Template template = null;

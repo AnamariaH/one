@@ -19,6 +19,7 @@ public class VMTemplateController {
         int userId = usersOneService.getUserId(userName);
         newTemplate.chown(usersOneService.getUserId(userName));
         newTemplate.chgrp(groupService.getUserGroup(userId));
+        newTemplate.chmod(740);
         return newTemplate.id();
     }
 

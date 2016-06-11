@@ -30,8 +30,8 @@ public class Main {
 //        userController.enroll("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json",
 //                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json",
 //                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/enrollUsersToCourse.json");
-        int id=vmTemplateController.createTemplate("t7","test-temp3","ttylinux_kvm_file0",64,1);
-        virtualMachineController.createVirtualMachine("s6",30,"vm-test4").deploy(2);
+//        int id=vmTemplateController.createTemplate("t7","test-temp3","ttylinux_kvm_file0",64,1);
+        virtualMachineController.createVirtualMachine("s6",30,"vm-test5").deploy(2);
      //   virtualMachineController.deployVM(48,2);
         //vmTemplateService.createVMTemplate("");
         //vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));
@@ -40,12 +40,7 @@ public class Main {
         // userController.createStudents("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json");
         //userController.createTeachers("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json");
 // usersOneService=new UsersOneService();
-//        usersOneService.setUserQuota(20, "VM=[\n" +
-//                "  CPU=\"2\",\n" +
-//                "  MEMORY=\"2048\",\n" +
-//                "  VMS=\"1\",\n" +
-//                "  VOLATILE_SIZE=\"-2\"\n" +
-//                "]");
+        //usersOneService.setUserQuota(65, 3,2048,4,-2);
 //        groupService.getUserGroup(1);
     }
 }

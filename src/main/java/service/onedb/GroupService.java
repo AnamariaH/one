@@ -144,6 +144,15 @@ public class GroupService {
         throw new RuntimeException("Group with name " + name + " not found");
     }
 
+    public void setGroupQuota(int groupId, int cpu, int memory, int vmNumber, int volatileSize) throws ClientConfigurationException {
+        OneResponse rc = getGroupById(groupId).setQuota("VM=[\n" +
+                "\"  CPU= " + cpu + ",\n" +
+                "\"  MEMORY= " + memory + ",\n" +
+                "\"  VMS=" + vmNumber + ",\n" +
+                "\"  VOLATILE_SIZE=\"" + volatileSize + "\"]");
+        System.out.println(rc.getMessage());
+    }
+
     public int getUserGroup(int userId) {
         int groupId = 0;
         User user = null;

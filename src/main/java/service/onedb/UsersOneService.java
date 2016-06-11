@@ -5,7 +5,6 @@ import dao.Teacher;
 import org.opennebula.client.Client;
 import org.opennebula.client.ClientConfigurationException;
 import org.opennebula.client.OneResponse;
-import org.opennebula.client.group.Group;
 import org.opennebula.client.user.User;
 import org.opennebula.client.user.UserPool;
 import service.db.DbUserService;
@@ -207,8 +206,12 @@ public class UsersOneService {
         getUserById(userId).delete();
     }
 
-    public void setUserQuota(int userId, String quota) throws ClientConfigurationException {
-        OneResponse rc = getUserById(userId).setQuota(quota);
+    public void setUserQuota(int userId, int cpu, int memory, int vmNumber, int volatileSize) throws ClientConfigurationException {
+        OneResponse rc = getUserById(userId).setQuota("VM=[\n" +
+                "\"  CPU= " + cpu + ",\n" +
+                "\"  MEMORY= " + memory + ",\n" +
+                "\"  VMS=" + vmNumber + ",\n" +
+                "\"  VOLATILE_SIZE=\"" + volatileSize + "\"]");
         System.out.println(rc.getMessage());
     }
 

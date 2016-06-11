@@ -13,8 +13,8 @@ public class ImageController {
     private GroupService groupService = new GroupService();
     private ImageService imageService = new ImageService();
 
-    public void createImage(int courseId, int userId, String imageURL) throws ClientConfigurationException, IOException {
-        if (groupService.getGroupById(courseId).contains(userId)) {
+    public void createImage(int courseId, String userName, String imageURL) throws ClientConfigurationException, IOException {
+        if (groupService.getGroupById(courseId).contains(usersOneService.getUserId(userName))) {
             imageService.uploadImage(imageURL);
         }
     }
