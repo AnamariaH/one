@@ -10,21 +10,21 @@ public class VMTemplateService {
 
     Client oneClient;
 
-    public Template createVMTemplate(String imageName) throws ClientConfigurationException {
-        oneClient=new Client();
+    public Template createVMTemplate(String templateName, String imageName, int templateMemory, int cpu) throws ClientConfigurationException {
+        oneClient = new Client();
         String vmTemplate =
-                "NAME   = test-temp2\n" +
-                        "MEMORY = 128\n" +
-                        "CONTEXT = [ NETWORK = \"YES\", SSH_PUBLIC_KEY = \"$USER[SSH_PUBLIC_KEY]\" ]\n" +
-                        "CPU    = 1\n" +
-                        "\n" +
-                        "DISK = [ IMAGE  = \"ttylinux - kvm_file0\", IMAGE_UNAME = oneadmin ]\n" +
-                        "\n" +
-                        "GRAPHICS = [\n" +
-                        "  TYPE    = \"vnc\",\n" +
-                        "  LISTEN  = \"0.0.0.0\"]";
+                "NAME   = " + templateName + "\n"+
+                "CONTEXT = [ NETWORK = \"YES\", SSH_PUBLIC_KEY = \"$USER[SSH_PUBLIC_KEY]\" ]\n" +
+                "CPU    = " + cpu + "\n" +
+                "DISK = [\n" +
+                        "IMAGE  = \"" + imageName + "\",\n " +
+                        "IMAGE_UNAME = oneadmin ]" + "\n" +
+                "GRAPHICS = [\n" +
+                "  TYPE    = \"vnc\",\n" +
+                "  LISTEN  = \"0.0.0.0\"]"+
+                "MEMORY = " + templateMemory;
 
-        System.out.print("Trying to allocate the virtual machine... ");
+        System.out.print("Trying to allocate template... ");
         OneResponse rc = Template.allocate(oneClient, vmTemplate);
 
         if (rc.isError()) {
@@ -67,7 +67,7 @@ public class VMTemplateService {
 
     public Template getTemplateById(int id) throws ClientConfigurationException {
         oneClient = new Client();
-        TemplatePool templatePool= new TemplatePool(oneClient);
+        TemplatePool templatePool = new TemplatePool(oneClient);
         templatePool.infoAll();
         System.out.print(templatePool.infoAll());
         return templatePool.getById(id);

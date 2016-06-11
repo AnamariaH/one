@@ -14,18 +14,12 @@ public class VMTemplateController {
     private UsersOneService usersOneService = new UsersOneService();
     private VMTemplateService vmTemplateService = new VMTemplateService();
 
-    public void createVMTemplate(int courseId, int userId, String imageName) throws ClientConfigurationException, IOException {
-        if (groupService.getGroupById(courseId).contains(userId)) {
-            vmTemplateService.createVMTemplate(imageName).chown(userId);
-        }
-    }
-
-    public void createTemplate(String courseName, String userName, String imageName) throws ClientConfigurationException, IOException {
-//        if (groupService.getGroupById(groupService.getGroupId(courseName))
-//                .contains(usersOneService.getUserId(userName))) {
-            Template newTemplate= vmTemplateService.createVMTemplate(imageName);
-            newTemplate.chown(usersOneService.getUserId(userName));
-            newTemplate.chgrp(groupService.getGroupId(courseName));
+    public int createTemplate(String userName, String templateName, String imageName, int templateMemory, int cpu) throws ClientConfigurationException, IOException {
+        Template newTemplate = vmTemplateService.createVMTemplate(templateName, imageName, templateMemory, cpu);
+        int userId = usersOneService.getUserId(userName);
+        newTemplate.chown(usersOneService.getUserId(userName));
+        newTemplate.chgrp(groupService.getUserGroup(userId));
+        return newTemplate.id();
     }
 
     public void removeTemplate(String userName, int templateId) throws ClientConfigurationException, IOException {

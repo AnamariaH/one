@@ -37,6 +37,7 @@ public class UserController {
         }
     }
 
+
     public void enrollUsersToCourse(String filename) throws ClientConfigurationException, JAXBException, IOException {
         List<EnrollToCourseDTO> enrollToCourses = FileUtils.enrollUsersToCourseFromFile(filename);
         for (EnrollToCourseDTO enroll : enrollToCourses) {
@@ -45,7 +46,8 @@ public class UserController {
                         groupService.getGroupId(enroll.getCourseId()));
             } else {
                 if (enroll.getUserRole().equals("teacher")) {
-                    usersOneService.enrollUserToCourse(enroll.getUserId(), groupService.getGroupId(enroll.getCourseId()));
+                    usersOneService.enrollUserToCourse(enroll.getUserId(),
+                            groupService.getGroupId(enroll.getCourseId()));
                 }
             }
             //dbUserService.insertTeacher(teacher);
@@ -53,7 +55,6 @@ public class UserController {
     }
 
     public void enroll(String filenameS, String filenameT, String filenameE) throws IOException, JAXBException, ClientConfigurationException {
-        createStudents(filenameS);
         createTeachers(filenameT);
         enrollUsersToCourse(filenameE);
     }

@@ -15,13 +15,12 @@ public class VirtualMachineController {
     private VirtualMachineService virtualMachineService = new VirtualMachineService();
 
 
-    public void createVirtualMachine(String courseName, String userName, int templateId) throws ClientConfigurationException {
-//        if (groupService.getGroupById(groupService.getGroupId(courseName))
-//                .contains(usersOneService.getUserId(userName))) {
-        VirtualMachine vm = virtualMachineService.createVM(templateId);
+    public VirtualMachine createVirtualMachine(String userName, int templateId, String vmName) throws ClientConfigurationException {
+        VirtualMachine vm = virtualMachineService.createVM(templateId, vmName);
         int userId = usersOneService.getUserId(userName);
         vm.chown(userId);
         vm.chgrp(groupService.getUserGroup(userId));
+        return vm;
     }
 
     public void removeVirtualMachine(String userName, int vmId) throws ClientConfigurationException, IOException {
@@ -34,6 +33,10 @@ public class VirtualMachineController {
         if (virtualMachineService.getVMById(vmId).uid() == usersOneService.getUserId(userName)) {
             virtualMachineService.changeVMPermissions(vmId, permissionCode);
         }
+    }
+
+    public void deployVM(int vmId, int hostId) throws ClientConfigurationException {
+        virtualMachineService.deployVM(vmId, hostId);
     }
 
 }

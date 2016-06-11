@@ -225,7 +225,7 @@ public class UsersOneService {
     }
 
     public void enrollUserToCourse(String user, int groupId) throws IOException, JAXBException, ClientConfigurationException {
-        OneResponse oneResponse = getUserById(getUserId(user)).chgrp(groupId);
+        getUserById(getUserId(user)).chgrp(groupId);
     }
 
 }

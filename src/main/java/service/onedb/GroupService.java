@@ -161,7 +161,6 @@ public class GroupService {
             throw new RuntimeException(e);
         }
         return groupId;
-
     }
 
 }

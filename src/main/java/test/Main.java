@@ -26,17 +26,19 @@ public class Main {
     private static VirtualMachineController virtualMachineController = new VirtualMachineController();
 
     public static void main(String[] args) throws Exception {
-        //vmTemplateController.createTemplate("c2_teachers","t1","ttylinux - kvm_file0");
-        virtualMachineController.createVirtualMachine("c2_teachers", "s7", 16);
-        //vmTemplateService.createVMTemplate("");
-        //vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));
-        //imageService.uploadImage();
+//        groupController.createGroups("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/courses.json");
 //        userController.enroll("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json",
 //                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json",
 //                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/enrollUsersToCourse.json");
+        int id=vmTemplateController.createTemplate("t7","test-temp3","ttylinux_kvm_file0",64,1);
+        virtualMachineController.createVirtualMachine("s6",30,"vm-test4").deploy(2);
+     //   virtualMachineController.deployVM(48,2);
+        //vmTemplateService.createVMTemplate("");
+        //vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));
+        //imageService.uploadImage();
+//
         // userController.createStudents("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json");
         //userController.createTeachers("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json");
-        //  groupController.createGroups("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/courses.json");
 // usersOneService=new UsersOneService();
 //        usersOneService.setUserQuota(20, "VM=[\n" +
 //                "  CPU=\"2\",\n" +

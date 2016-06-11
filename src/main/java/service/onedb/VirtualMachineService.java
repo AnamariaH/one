@@ -4,25 +4,45 @@ package service.onedb;
 import org.opennebula.client.Client;
 import org.opennebula.client.ClientConfigurationException;
 import org.opennebula.client.OneResponse;
+import org.opennebula.client.template.Template;
 import org.opennebula.client.vm.VirtualMachine;
 import org.opennebula.client.vm.VirtualMachinePool;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 
 public class VirtualMachineService {
 
+    public VMTemplateService vmTemplateService = new VMTemplateService();
+    public ImageService imageService = new ImageService();
     Client oneClient;
 
-    public VirtualMachine createVM(int templateId) throws ClientConfigurationException {
+    public static Document loadXMLFromString(String xml) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputSource is = new InputSource(new StringReader(xml));
+        return builder.parse(is);
+    }
+
+    public VirtualMachine createVM(int templateId, String vmName) throws ClientConfigurationException {
         oneClient = new Client();
         String vmTemplate =
-                "NAME     = vm_test_5   CPU = 1    MEMORY = 64\n" +
+                "NAME     = \"" + vmName + "\"" + "\n" +
+                        "MEMORY = " + getTemplateMemory(templateId) + "\n" +
+                        "CPU = " + getTemplateCPU(templateId) + "\n" +
                         "CONTEXT = [ NETWORK = \"YES\", TARGET = \"hdb\" ]\n" +
                         "DISK = [ DATASTORE = \"default\", DATASTORE_ID = \"1\", \n" +
                         "DEV_PREFIX = \"hd\", DISK_ID = \"0\", \n" +
                         "DISK_SNAPSHOT_TOTAL_SIZE = \"0\", LN_TARGET = \"NONE\", \n" +
-                        "IMAGE = \"ttylinux - kvm_file0\", IMAGE_ID = \"5\", IMAGE_UNAME = \"oneadmin\", \n"+
+                        "IMAGE = \"" + imageService.getTemplateImage(templateId) + "\", " +
+                        "IMAGE_ID = " + imageService.getImageId(imageService.getTemplateImage(templateId)) + ", " +
+                        "IMAGE_UNAME = \"oneadmin\", \n" +
                         "TARGET = \"hda\", TM_MAD = \"shared\"] \n" +
-                        "TEMPLATE_ID     = " + templateId +
-                        "\n" +
+                        "TEMPLATE_ID     = " + templateId + "\n" +
                         "GRAPHICS = [\n" +
                         "  TYPE    = \"VNC\",\n" +
                         " PORT = \"5921\", \n" +
@@ -61,9 +81,8 @@ public class VirtualMachineService {
         return vmpool.getById(id);
     }
 
-    public void deployVM(int vmId, int hostId, boolean enforce, int dsId) throws ClientConfigurationException {
-        //getVMById(vmID).deploy(hostId, enforce, dsId);
-        OneResponse rc = getVMById(vmId).deploy(hostId, enforce, dsId);
+    public void deployVM(int vmId, int hostId) throws ClientConfigurationException {
+        OneResponse rc = getVMById(vmId).deploy(hostId);
         System.out.println(rc.getMessage());
     }
 
@@ -96,4 +115,39 @@ public class VirtualMachineService {
         OneResponse rc = getVMById(vmId).resume();
         System.out.println(rc.getMessage());
     }
+
+    public int getTemplateMemory(int templateId) {
+        int memory = 0;
+        Template template = null;
+        try {
+            template = vmTemplateService.getTemplateById(templateId);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = loadXMLFromString(template.info().getMessage());
+            NodeList nodeList = doc.getElementsByTagName("MEMORY");
+            memory = Integer.parseInt(nodeList.item(0).getTextContent());
+            System.out.println("----------------------------");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return memory;
+    }
+
+    public int getTemplateCPU(int templateId) {
+        int cpu = 0;
+        Template template = null;
+        try {
+            template = vmTemplateService.getTemplateById(templateId);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = loadXMLFromString(template.info().getMessage());
+            NodeList nodeList = doc.getElementsByTagName("CPU");
+            cpu = Integer.parseInt(nodeList.item(0).getTextContent());
+            System.out.println("----------------------------");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return cpu;
+    }
+
 }

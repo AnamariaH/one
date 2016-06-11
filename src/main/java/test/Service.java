@@ -58,7 +58,7 @@ public class Service {
 
     public void deployVMByTeacher(int teacherId, int vmId, int hostId, boolean enforce, int dsId) throws ClientConfigurationException {
         if (dbUserService.getRoleById(teacherId).equals("professor")) {
-            vmService.deployVM(vmId, hostId, enforce, dsId);
+            vmService.deployVM(vmId, hostId);
         } else {
             System.out.println("User is not a teacher!!");
         }

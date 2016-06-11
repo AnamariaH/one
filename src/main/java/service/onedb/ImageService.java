@@ -7,14 +7,24 @@ import org.opennebula.client.ClientConfigurationException;
 import org.opennebula.client.OneResponse;
 import org.opennebula.client.image.Image;
 import org.opennebula.client.image.ImagePool;
+import org.opennebula.client.template.Template;
+import org.opennebula.client.user.User;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 
 public class ImageService {
 
     public static DatastoreService ds = new DatastoreService();
+    public VMTemplateService vmTemplateService=new VMTemplateService();
     static Client oneClient;
 
     public String getImageFromURL(String imageURL) throws IOException {
@@ -117,6 +127,18 @@ public class ImageService {
         return imagePool.getById(imageID);
     }
 
+    public int getImageId(String imageName) throws ClientConfigurationException {
+        oneClient = new Client();
+        ImagePool imagePool = new ImagePool(oneClient);
+        imagePool.info();
+        for (Image image : imagePool) {
+            if (imageName.equals(image.getName())) {
+                return Integer.parseInt(image.getId());
+            }
+        }
+        throw new RuntimeException("Group with name " + imageName + " not found");
+    }
+
     public void deleteImage(int imageID) throws ClientConfigurationException {
         getImageByID(imageID).delete();
     }
@@ -131,9 +153,39 @@ public class ImageService {
         System.out.println(rc.getMessage());
     }
 
+    public void changeStateToEnabled(int imageId) throws ClientConfigurationException {
+        getImageByID(imageId).enable();
+    }
+
     public void changeImagePermissions(int imageID, int permissionCode) throws ClientConfigurationException {
         OneResponse rc = getImageByID(imageID).chmod(permissionCode);
         System.out.println(rc.getMessage());
+    }
+
+    public static Document loadXMLFromString(String xml) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputSource is = new InputSource(new StringReader(xml));
+        return builder.parse(is);
+    }
+
+    public String getTemplateImage(int templateId) {
+        String imageName = null;
+        Template template = null;
+        try {
+            template = vmTemplateService.getTemplateById(templateId);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = loadXMLFromString(template.info().getMessage());
+            NodeList nodeList = doc.getElementsByTagName("DISK");
+            Element e = (Element) nodeList.item(0);
+            NodeList imageId = e.getElementsByTagName("IMAGE");
+            imageName = imageId.item(0).getTextContent();
+            System.out.println("----------------------------");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return imageName;
     }
 
 }
