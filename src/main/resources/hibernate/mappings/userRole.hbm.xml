@@ -4,15 +4,15 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="dao.Course" table="course">
+    <class name="dao.UserRole" table="user_role">
         <meta attribute="class-description">
             This class contains courses details.
         </meta>
         <id name="id" type="int" column="id">
             <generator class="native"/>
         </id>
-        <property name="name" column="name" type="string"/>
-        <property name="students_group" column="students_group" type="int"/>
-        <property name="teachers_group" column="teachers_group" type="int"/>
+        <many-to-one name="user_id" fetch="select" lazy="false" column="user_id" unique="true" class="dao.User"/>
+        <many-to-one name="role_id" fetch="select" lazy="false" column="role_id" unique="true" class="dao.Role"/>
+        <many-to-one name="course_id" fetch="select" lazy="false" column="course_id" unique="true" class="dao.Course"/>
     </class>
 </hibernate-mapping>

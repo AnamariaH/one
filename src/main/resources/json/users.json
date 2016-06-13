@@ -1,0 +1,14 @@
+[
+  {
+    "name": "s10",
+    "role": "student",
+    "email": "s",
+    "id_moodle": 12
+  },
+  {
+    "name": "t10",
+    "role": "teacher",
+    "email": "t",
+    "id_moodle": 13
+  }
+]

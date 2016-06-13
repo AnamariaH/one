@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="dao.Course" table="course">
+    <class name="dao.User" table="user">
         <meta attribute="class-description">
             This class contains courses details.
         </meta>
@@ -12,7 +12,7 @@
             <generator class="native"/>
         </id>
         <property name="name" column="name" type="string"/>
-        <property name="students_group" column="students_group" type="int"/>
-        <property name="teachers_group" column="teachers_group" type="int"/>
+        <property name="email" column="email" type="string"/>
+        <property name="id_moodle" column="id_moodle" type="int"/>
     </class>
 </hibernate-mapping>

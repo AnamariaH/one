@@ -4,9 +4,33 @@ public class Course {
 
     private int id;
     private String name;
-    private int code;
-    private String responsible;
-    private int oneId;
+    private int students_group;
+    private int teachers_group;
+
+    public Course() {
+    }
+
+    public Course(String name, int students_group, int teachers_group) {
+        this.name = name;
+        this.students_group = students_group;
+        this.teachers_group = teachers_group;
+    }
+
+    public int getStudents_group() {
+        return students_group;
+    }
+
+    public void setStudents_group(int students_group) {
+        this.students_group = students_group;
+    }
+
+    public int getTeachers_group() {
+        return teachers_group;
+    }
+
+    public void setTeachers_group(int teachers_group) {
+        this.teachers_group = teachers_group;
+    }
 
     public int getId() {
         return id;
@@ -24,27 +48,4 @@ public class Course {
         this.name = name;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
-    }
-
-    public int getOneId() {
-        return oneId;
-    }
-
-    public void setOneId(int oneId) {
-        this.oneId = oneId;
-    }
 }

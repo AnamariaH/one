@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.Course;
 import dao.Student;
 import dao.Teacher;
+import dao.User;
 import dto.EnrollToCourseDTO;
 
 import javax.xml.bind.JAXBException;
@@ -28,6 +29,14 @@ public class FileUtils {
         List<Teacher> teachers = mapper.readValue(new File(fileName), new TypeReference<List<Teacher>>() {
         });
         return teachers;
+    }
+
+    public static List<User> getUsersFromFile(String fileName) throws IOException, JAXBException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<User> users = mapper.readValue(new File(fileName), new TypeReference<List<User>>() {
+        });
+        return users;
     }
 
     public static List<Course> getCoursesFromFile(String fileName) throws IOException, JAXBException {

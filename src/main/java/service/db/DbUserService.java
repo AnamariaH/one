@@ -1,10 +1,8 @@
 package service.db;
 
 
+import dao.*;
 import utils.HibernateUtil;
-import dao.EnrolStudentsToCourse;
-import dao.Student;
-import dao.Teacher;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,17 +16,17 @@ public class DbUserService {
     /**
      * verify from DB if user is student or professor.
      */
-    public String getRoleById(int id) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("FROM EnrolToCourse where teacherID.id=:id");
-        query.setParameter("id", id);
-        List<EnrolStudentsToCourse> role = query.list();
-        String r = role.get(0).getUserRole();
-        transaction.commit();
-        session.close();
-        return r;
-    }
+//    public String getRoleById(int id) {
+//        Session session = HibernateUtil.getSession();
+//        Transaction transaction = session.beginTransaction();
+//        Query query = session.createQuery("FROM EnrolToCourse where teacherID.id=:id");
+//        query.setParameter("id", id);
+//        List<Subscription> role = query.list();
+//        String r = role.get(0).getUserRole();
+//        transaction.commit();
+//        session.close();
+//        return r;
+//    }
 
     public void insertStudentsFromFile(List<Student> list) throws IOException, JAXBException {
         Session session = HibernateUtil.getSession();
@@ -45,6 +43,22 @@ public class DbUserService {
         transaction.commit();
         session.close();
     }
+
+    public void insertUser(User user) throws IOException, JAXBException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(user);
+        transaction.commit();
+        session.close();
+    }
+
+//    public void insertUserOne(OneUser oneUser) throws IOException, JAXBException {
+//        Session session = HibernateUtil.getSession();
+//        Transaction transaction = session.beginTransaction();
+//        session.save(oneUser);
+//        transaction.commit();
+//        session.close();
+//    }
 
     public void insertTeacher(Teacher teacher) throws IOException, JAXBException {
         Session session = HibernateUtil.getSession();

@@ -75,7 +75,7 @@ public class GroupService {
         return newGroup;
     }
 
-    public int createCourse(String groupName) {
+    public int createCourse(String courseName) {
         try {
             oneClient = new Client();
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class GroupService {
             System.out.println(rc.getErrorMessage());
         }
 
-        rc = Group.allocate(oneClient, groupName);
+        rc = Group.allocate(oneClient, courseName);
 
         if (rc.isError()) {
             System.out.println(rc.getErrorMessage());

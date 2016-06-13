@@ -2,6 +2,7 @@ package controllers;
 
 import dao.Student;
 import dao.Teacher;
+import dao.User;
 import dto.EnrollToCourseDTO;
 import org.opennebula.client.ClientConfigurationException;
 import service.db.DbUserService;
@@ -22,8 +23,8 @@ public class UserController {
     public void createStudents(String filename) throws IOException, JAXBException {
         List<Student> studentsFromFile = FileUtils.getStudentsFromFile(filename);
         for (Student student : studentsFromFile) {
-            usersOneService.createStudent(student.getName());
-//            student.setOneId(usersOneService.createStudent(student.getName()));
+            usersOneService.createUser(student.getName());
+//            student.setOneId(usersOneService.createUser(student.getName()));
 //            dbUserService.insertStudent(student);
         }
     }
@@ -34,6 +35,15 @@ public class UserController {
             usersOneService.createTeacher(teacher.getName());
 //            teacher.setOneId(usersOneService.createTeacher(teacher.getName()));
 //            dbUserService.insertTeacher(teacher);
+        }
+    }
+
+    public void createUsers(String filename) throws IOException, JAXBException {
+        List<User> usersFromFile = FileUtils.getUsersFromFile(filename);
+        for (User user : usersFromFile) {
+            int idUserOne = usersOneService.createUser(user.getName());
+            int idUserMoodle = user.getId_moodle();
+            dbUserService.insertUser(user);
         }
     }
 
@@ -57,6 +67,10 @@ public class UserController {
     public void enroll(String filenameS, String filenameT, String filenameE) throws IOException, JAXBException, ClientConfigurationException {
         createTeachers(filenameT);
         enrollUsersToCourse(filenameE);
+    }
+
+    public void changeUserPassword(String userName, String newPassword) throws ClientConfigurationException {
+        usersOneService.changePassword(usersOneService.getUserId(userName),newPassword);
     }
 
 }

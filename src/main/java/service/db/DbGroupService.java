@@ -17,4 +17,12 @@ public class DbGroupService {
         transaction.commit();
         session.close();
     }
+
+//    public void insertCourseOne(OneCourse oneCourse) throws IOException, JAXBException {
+//        Session session = HibernateUtil.getSession();
+//        Transaction transaction = session.beginTransaction();
+//        session.save(oneCourse);
+//        transaction.commit();
+//        session.close();
+//    }
 }

@@ -67,13 +67,13 @@ public class UsersOneService {
         return users;
     }
 
-    public int createStudent(String studentName) {
+    public int createUser(String userName) {
         try {
             oneClient = new Client();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        User newStudent;
+        User newUser;
         UserPool userpool = new UserPool(oneClient);
         OneResponse rc = userpool.info();
 
@@ -81,7 +81,7 @@ public class UsersOneService {
             System.out.println(rc.getErrorMessage());
         }
 
-        rc = User.allocate(oneClient, studentName, "pass1234");
+        rc = User.allocate(oneClient, userName, "pass1234");
 
         if (rc.isError()) {
             System.out.println(rc.getErrorMessage());
@@ -90,9 +90,9 @@ public class UsersOneService {
         int userId = Integer.parseInt(rc.getMessage());
         System.out.println("The allocation request returned this ID: " + userId);
 
-        newStudent = new User(userId, oneClient);
+        newUser = new User(userId, oneClient);
 
-        rc = newStudent.info();
+        rc = newUser.info();
 
         if (rc.isError()) {
             System.out.println(rc.getErrorMessage());
@@ -204,6 +204,10 @@ public class UsersOneService {
 
     public void deleteUser(int userId) throws ClientConfigurationException {
         getUserById(userId).delete();
+    }
+
+    public void changePassword(int userId, String newPassword) throws ClientConfigurationException {
+        getUserById(userId).passwd(newPassword);
     }
 
     public void setUserQuota(int userId, int cpu, int memory, int vmNumber, int volatileSize) throws ClientConfigurationException {

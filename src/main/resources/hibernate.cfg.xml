@@ -20,9 +20,10 @@
         <property name="show_sql">true</property>
 
         <mapping resource="hibernate/mappings/course.hbm.xml"/>
-        <mapping resource="hibernate/mappings/enrole.hbm.xml"/>
-        <mapping resource="hibernate/mappings/student.hbm.xml"/>
-        <mapping resource="hibernate/mappings/teacher.hbm.xml"/>
+        <mapping resource="hibernate/mappings/enrollToCourse.hbm.xml"/>
+        <mapping resource="hibernate/mappings/userRole.hbm.xml"/>
+        <mapping resource="hibernate/mappings/user.hbm.xml"/>
+        <mapping resource="hibernate/mappings/role.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
