@@ -4,12 +4,8 @@ import controllers.GroupController;
 import controllers.UserController;
 import controllers.VMTemplateController;
 import controllers.VirtualMachineController;
-import org.opennebula.client.ClientConfigurationException;
 import service.db.DbUserService;
 import service.onedb.*;
-
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 public class Main {
 
@@ -25,13 +21,14 @@ public class Main {
     private static VirtualMachineController virtualMachineController = new VirtualMachineController();
 
     public static void main(String[] args) throws Exception {
+        //userController.enrollUsersToCourse("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/enrollUsersToCourse.json");
         //userController.createUsers("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/users.json");
-        groupController.createGroups("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/courses.json");
-//        userController.enroll("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/students.json",
-//                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/teachers.json",
-//                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/enrollUsersToCourse.json");
-//        int id=vmTemplateController.createTemplate("t7","test-temp3","ttylinux_kvm_file0",64,1);
-        //virtualMachineController.createVirtualMachine("s6",30,"vm-test5").deploy(2);
+//        groupController.createCourses("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/courses.json");
+        userController.enroll("/home/anamaria/IdeaProjects/cloud/src/main/resources/json/users.json",
+                "/home/anamaria/IdeaProjects/cloud/src/main/resources/json/enrollUsersToCourse.json");
+//        int id=vmTemplateController.createTemplate("t11","test-temp4","ttylinux_kvm_file0",64,1);
+//        virtualMachineController.createVirtualMachine("s10",id,"vm-test5").deploy(2);
+        //virtualMachineController.stopVM("s11",56);
      //   virtualMachineController.deployVM(48,2);
         //vmTemplateService.createVMTemplate("");
         //vmService.createVM(vmTemplateService.getTemplateId("test-temp1"));

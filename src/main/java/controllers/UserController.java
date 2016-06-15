@@ -1,11 +1,9 @@
 package controllers;
 
-import dao.Student;
-import dao.Teacher;
-import dao.User;
+import dao.*;
 import dto.EnrollToCourseDTO;
 import org.opennebula.client.ClientConfigurationException;
-import service.db.DbUserService;
+import service.db.*;
 import service.onedb.GroupService;
 import service.onedb.UsersOneService;
 import test.FileUtils;
@@ -19,6 +17,10 @@ public class UserController {
     private UsersOneService usersOneService = new UsersOneService();
     private GroupService groupService = new GroupService();
     private DbUserService dbUserService = new DbUserService();
+    private DbGroupService dbGroupService = new DbGroupService();
+    private DbSubscriptionService dbSubscriptionService = new DbSubscriptionService();
+    private DbRoleService dbRoleService = new DbRoleService();
+    private DbSubscriptionRoleService dbSubscriptionRoleService=new DbSubscriptionRoleService();
 
     public void createStudents(String filename) throws IOException, JAXBException {
         List<Student> studentsFromFile = FileUtils.getStudentsFromFile(filename);
@@ -42,7 +44,7 @@ public class UserController {
         List<User> usersFromFile = FileUtils.getUsersFromFile(filename);
         for (User user : usersFromFile) {
             int idUserOne = usersOneService.createUser(user.getName());
-            int idUserMoodle = user.getId_moodle();
+            user.setId(idUserOne);
             dbUserService.insertUser(user);
         }
     }
@@ -51,26 +53,26 @@ public class UserController {
     public void enrollUsersToCourse(String filename) throws ClientConfigurationException, JAXBException, IOException {
         List<EnrollToCourseDTO> enrollToCourses = FileUtils.enrollUsersToCourseFromFile(filename);
         for (EnrollToCourseDTO enroll : enrollToCourses) {
-            if (enroll.getUserRole().equals("student")) {
-                usersOneService.enrollUserToCourse(enroll.getUserId(),
-                        groupService.getGroupId(enroll.getCourseId()));
-            } else {
-                if (enroll.getUserRole().equals("teacher")) {
-                    usersOneService.enrollUserToCourse(enroll.getUserId(),
-                            groupService.getGroupId(enroll.getCourseId()));
-                }
+            if(groupService.getUserGroup(usersOneService.getUserId(enroll.getUserId())) != 1){
+                usersOneService.enrollUserToSecondaryCourse(enroll.getUserId(), groupService.getGroupId(enroll.getCourseId() + "_" + enroll.getUserRole() + "s"));
             }
-            //dbUserService.insertTeacher(teacher);
+            else {
+                usersOneService.enrollUserToCourse(enroll.getUserId(), groupService.getGroupId(enroll.getCourseId() + "_" + enroll.getUserRole() + "s"));
+            }
+            Subscription subscription = new Subscription(new User(usersOneService.getUserId(enroll.getUserId())), dbGroupService.getCourse(enroll.getCourseId()));
+            dbSubscriptionService.insertSubscription(subscription);
+            Role role=dbRoleService.getRole(enroll.getUserRole());
+            dbSubscriptionRoleService.insertSubscriptionRole(new SubscriptionRole(subscription,role));
         }
     }
 
-    public void enroll(String filenameS, String filenameT, String filenameE) throws IOException, JAXBException, ClientConfigurationException {
-        createTeachers(filenameT);
-        enrollUsersToCourse(filenameE);
+    public void enroll(String filenameUsers, String filenameEnrollemnt) throws IOException, JAXBException, ClientConfigurationException {
+        createUsers(filenameUsers);
+        enrollUsersToCourse(filenameEnrollemnt);
     }
 
     public void changeUserPassword(String userName, String newPassword) throws ClientConfigurationException {
-        usersOneService.changePassword(usersOneService.getUserId(userName),newPassword);
+        usersOneService.changePassword(usersOneService.getUserId(userName), newPassword);
     }
 
 }

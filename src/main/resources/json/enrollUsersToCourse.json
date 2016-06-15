@@ -1,12 +1,17 @@
 [
   {
-    "courseId": "c3_teachers",
-    "userId": "t7",
-    "userRole": "teacher"
+    "courseId": "c7",
+    "userId": "s12",
+    "userRole": "student"
   },
   {
-    "courseId": "c3_students",
-    "userId": "s9",
+    "courseId": "c6",
+    "userId": "s12",
     "userRole": "student"
+  },
+  {
+    "courseId": "c7",
+    "userId": "t12",
+    "userRole": "teacher"
   }
 ]

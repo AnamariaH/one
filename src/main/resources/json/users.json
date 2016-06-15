@@ -1,14 +1,12 @@
 [
   {
-    "name": "s10",
-    "role": "student",
+    "name": "s12",
     "email": "s",
-    "id_moodle": 12
+    "idMoodle": 21
   },
   {
-    "name": "t10",
-    "role": "teacher",
+    "name": "t12",
     "email": "t",
-    "id_moodle": 13
+    "idMoodle": 25
   }
 ]

@@ -20,8 +20,8 @@
         <property name="show_sql">true</property>
 
         <mapping resource="hibernate/mappings/course.hbm.xml"/>
-        <mapping resource="hibernate/mappings/enrollToCourse.hbm.xml"/>
-        <mapping resource="hibernate/mappings/userRole.hbm.xml"/>
+        <mapping resource="hibernate/mappings/subscription.hbm.xml"/>
+        <mapping resource="hibernate/mappings/subscriptionRole.hbm.xml"/>
         <mapping resource="hibernate/mappings/user.hbm.xml"/>
         <mapping resource="hibernate/mappings/role.hbm.xml"/>
 

@@ -4,11 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="dao.Subscription" table="enroll_to_course">
+    <class name="dao.Subscription" table="subscription">
         <id name="id" type="int" column="ID">
             <generator class="native"/>
         </id>
-        <property name="user_id" column="user_id" type="int"/>
-        <property name="course_id" column="course_id" type="int"/>
+        <many-to-one name="user" fetch="select" lazy="false" column="user" unique="true" class="dao.User"/>
+        <many-to-one name="course" fetch="select" lazy="false" column="course" unique="true" class="dao.Course"/>
     </class>
 </hibernate-mapping>

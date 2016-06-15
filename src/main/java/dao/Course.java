@@ -4,32 +4,33 @@ public class Course {
 
     private int id;
     private String name;
-    private int students_group;
-    private int teachers_group;
+    private int studentsGroup;
+    private int teachersGroup;
+
+    public Course(int id, String name, int studentsGroup, int teachersGroup) {
+        this.id = id;
+        this.name = name;
+        this.studentsGroup = studentsGroup;
+        this.teachersGroup = teachersGroup;
+    }
 
     public Course() {
     }
 
-    public Course(String name, int students_group, int teachers_group) {
-        this.name = name;
-        this.students_group = students_group;
-        this.teachers_group = teachers_group;
+    public int getStudentsGroup() {
+        return studentsGroup;
     }
 
-    public int getStudents_group() {
-        return students_group;
+    public void setStudentsGroup(int studentsGroup) {
+        this.studentsGroup = studentsGroup;
     }
 
-    public void setStudents_group(int students_group) {
-        this.students_group = students_group;
+    public int getTeachersGroup() {
+        return teachersGroup;
     }
 
-    public int getTeachers_group() {
-        return teachers_group;
-    }
-
-    public void setTeachers_group(int teachers_group) {
-        this.teachers_group = teachers_group;
+    public void setTeachersGroup(int teachersGroup) {
+        this.teachersGroup = teachersGroup;
     }
 
     public int getId() {

@@ -235,4 +235,8 @@ public class UsersOneService {
         getUserById(getUserId(user)).chgrp(groupId);
     }
 
+    public void enrollUserToSecondaryCourse(String user, int groupId) throws IOException, JAXBException, ClientConfigurationException {
+        getUserById(getUserId(user)).addgroup(groupId);
+    }
+
 }

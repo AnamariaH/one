@@ -5,7 +5,11 @@ public class User {
     private int id;
     private String name;
     private String email;
-    private int id_moodle;
+    private int idMoodle;
+
+    public User(int id) {
+        this.id = id;
+    }
 
     public User() {
 
@@ -14,7 +18,7 @@ public class User {
     public User(String name, String email, int id_moodle) {
         this.name = name;
         this.email = email;
-        this.id_moodle = id_moodle;
+        this.idMoodle = id_moodle;
     }
 
     public String getName() {
@@ -33,12 +37,12 @@ public class User {
         this.email = email;
     }
 
-    public int getId_moodle() {
-        return id_moodle;
+    public int getIdMoodle() {
+        return idMoodle;
     }
 
-    public void setId_moodle(int id_moodle) {
-        this.id_moodle = id_moodle;
+    public void setIdMoodle(int idMoodle) {
+        this.idMoodle = idMoodle;
     }
 
     public int getId() {

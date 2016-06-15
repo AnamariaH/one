@@ -8,11 +8,9 @@
         <meta attribute="class-description">
             This class contains courses details.
         </meta>
-        <id name="id" type="int" column="id">
-            <generator class="native"/>
-        </id>
+        <id name="id" type="int" column="id"/>
         <property name="name" column="name" type="string"/>
         <property name="email" column="email" type="string"/>
-        <property name="id_moodle" column="id_moodle" type="int"/>
+        <property name="idMoodle" column="id_moodle" type="int"/>
     </class>
 </hibernate-mapping>
